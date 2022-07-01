@@ -1,0 +1,39 @@
+SELECT * FROM users
+LIMIT 20;
+SELECT * FROM progress
+LIMIT 20;
+
+SELECT email_domain, COUNT(*) FROM users
+GROUP BY 1
+ORDER BY 2 DESC
+LIMIT 25;
+
+SELECT city, COUNT(*) FROM users
+WHERE city = "New York";
+
+SELECT mobile_app, COUNT(*) AS 'Mobile User'
+FROM users
+WHERE mobile_app IS 'mobile-user';
+
+SELECT sign_up_at,
+   strftime('%S', sign_up_at)
+FROM users
+GROUP BY 1
+LIMIT 20;
+
+SELECT users.user_id,
+   users.email_domain,
+   users.city,
+   users.country,
+   progress.learn_cpp,
+   progress.learn_sql,
+   progress.learn_html,
+   progress.learn_javascript,
+   progress.learn_java
+FROM users
+JOIN progress
+  ON users.user_id = progress.user_id
+  WHERE city = "New York"
+    OR city ="Chicago"
+LIMIT 20;
+
